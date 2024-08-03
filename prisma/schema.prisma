@@ -12,6 +12,7 @@ datasource db {
 
 model Product {
   id                     String                 @id @default(uuid())
+  name                   String
   price                  Int
   filePath               String
   imagePath              String
