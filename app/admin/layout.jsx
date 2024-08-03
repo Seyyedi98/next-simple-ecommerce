@@ -1,6 +1,8 @@
 import React from "react";
 import { Nav, NavLink } from "../_components/Nav";
 
+export const dynamic = "force-dynamic"; // not cache any of admin pages
+
 const AdminLayout = ({ children }) => {
   return (
     <>
