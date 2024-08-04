@@ -18,7 +18,7 @@ export function ActiveToggleDropdownItem({ id, isAvailableForPurchase }) {
       onClick={() => {
         startTransition(async () => {
           await toggleProductAvailability(id, !isAvailableForPurchase);
-          // refresh cache
+
           router.refresh();
         });
       }}
