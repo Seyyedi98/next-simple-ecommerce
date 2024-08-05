@@ -29,6 +29,8 @@ export function ActiveToggleDropdownItem({ id, isAvailableForPurchase }) {
 }
 
 export function DeleteDropdownItem({ id, disabled }) {
+  const router = useRouter();
+
   const [isPending, startTransition] = useTransition();
 
   return (

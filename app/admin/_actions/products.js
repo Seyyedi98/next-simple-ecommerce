@@ -63,4 +63,7 @@ export async function toggleProductAvailability(id, isAvailableForPurchase) {
 export async function deleteProduct(id) {
   const product = await prisma.product.delete({ where: { id } });
   if (product == null) return notFound();
+
+  await fs.unlink(product.filePath);
+  await fs.unlink(`public${product.imagePath}`);
 }
