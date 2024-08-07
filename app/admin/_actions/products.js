@@ -4,6 +4,7 @@ import { z } from "zod";
 import fs from "fs/promises";
 import { notFound, redirect } from "next/navigation";
 import prisma from "@/db/db";
+import { revalidatePath } from "next/cache";
 
 const fileSchema = z.instanceof(File, { message: "Required" });
 const imageSchema = fileSchema.refine(
@@ -53,6 +54,9 @@ export async function addProduct(prevState, formData) {
     },
   });
 
+  revalidatePath("/");
+  revalidatePath("/products");
+
   redirect("/admin/products");
 }
 
@@ -100,6 +104,9 @@ export async function updateProduct(id, _, formData) {
     },
   });
 
+  revalidatePath("/");
+  revalidatePath("/products");
+
   redirect("/admin/products");
 }
 
@@ -110,6 +117,9 @@ export async function toggleProductAvailability(id, isAvailableForPurchase) {
       isAvailableForPurchase,
     },
   });
+
+  revalidatePath("/");
+  revalidatePath("/products");
 }
 
 export async function deleteProduct(id) {
@@ -118,4 +128,7 @@ export async function deleteProduct(id) {
 
   await fs.unlink(product.filePath);
   await fs.unlink(`public${product.imagePath}`);
+
+  revalidatePath("/");
+  revalidatePath("/products");
 }
